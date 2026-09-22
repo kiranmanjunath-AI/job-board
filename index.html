@@ -1,0 +1,1111 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&amp;family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&amp;family=DM+Mono:wght@400;500&amp;display=swap">
+
+<style>
+/* === TOKENS === */
+:root {
+  --bg:          #EFECE5;
+  --surface:     #FFFFFF;
+  --surface-2:   #F7F5F1;
+  --surface-3:   #F0EDE8;
+  --text-1:      #1A1714;
+  --text-2:      #6B6560;
+  --text-3:      #9E9990;
+  --accent:      #1C5596;
+  --accent-dim:  #E8EEF6;
+  --border:      #DDD9D3;
+  --border-sub:  #EAE7E2;
+  --fit-hi:      #1A7A4A;  --fit-hi-bg:  #EDFAF3;
+  --fit-md:      #B55E0A;  --fit-md-bg:  #FEF3E8;
+  --fit-lo:      #8B3A3A;  --fit-lo-bg:  #FBEEEE;
+  --fit-rv:      #5C3A9E;  --fit-rv-bg:  #F3EFFE;
+  --st-applied:  #1A7A4A;  --st-app-bg:  #EDFAF3;
+  --st-wait:     #B55E0A;  --st-wait-bg: #FEF3E8;
+  --st-pass:     #767170;  --st-pass-bg: #F0EDE8;
+  --st-followup: #C44E0A;  --st-fu-bg:   #FEF0E8;
+  --st-closed:   #4A6FA5;  --st-closed-bg: #EBF0F8;
+  --shadow:      0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-hov:  0 4px 18px rgba(0,0,0,0.10);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg:          #141210; --surface:    #1E1B18; --surface-2: #252117; --surface-3: #2C2820;
+    --text-1:      #F0EDE8; --text-2:     #9B9590; --text-3:    #6B6560;
+    --accent:      #5A9FD4; --accent-dim: #1A2A3A;
+    --border:      #2E2A26; --border-sub: #252117;
+    --fit-hi:  #3DC47A; --fit-hi-bg:  #0D2419;
+    --fit-md:  #D4822A; --fit-md-bg:  #2A1A0D;
+    --fit-lo:  #C46060; --fit-lo-bg:  #2A1010;
+    --fit-rv:  #9B72E8; --fit-rv-bg:  #1E1430;
+    --st-applied:  #3DC47A; --st-app-bg:  #0D2419;
+    --st-wait:     #D4822A; --st-wait-bg: #2A1A0D;
+    --st-pass:     #8B8580; --st-pass-bg: #252117;
+    --st-followup: #E06030; --st-fu-bg:   #2A1200;
+    --shadow:      0 1px 4px rgba(0,0,0,0.35); --shadow-hov: 0 4px 20px rgba(0,0,0,0.45);
+  }
+}
+:root[data-theme="dark"] {
+  --bg:#141210; --surface:#1E1B18; --surface-2:#252117; --surface-3:#2C2820;
+  --text-1:#F0EDE8; --text-2:#9B9590; --text-3:#6B6560;
+  --accent:#5A9FD4; --accent-dim:#1A2A3A; --border:#2E2A26; --border-sub:#252117;
+  --fit-hi:#3DC47A; --fit-hi-bg:#0D2419; --fit-md:#D4822A; --fit-md-bg:#2A1A0D;
+  --fit-lo:#C46060; --fit-lo-bg:#2A1010; --fit-rv:#9B72E8; --fit-rv-bg:#1E1430;
+  --st-applied:#3DC47A; --st-app-bg:#0D2419; --st-wait:#D4822A; --st-wait-bg:#2A1A0D;
+  --st-pass:#8B8580; --st-pass-bg:#252117; --st-followup:#E06030; --st-fu-bg:#2A1200;
+  --shadow:0 1px 4px rgba(0,0,0,0.35); --shadow-hov:0 4px 20px rgba(0,0,0,0.45);
+}
+
+/* === BASE === */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',system-ui,sans-serif;background:var(--bg);color:var(--text-1);line-height:1.5;-webkit-font-smoothing:antialiased;min-height:100vh;}
+button{cursor:pointer;font-family:'DM Sans',system-ui,sans-serif;}
+a{color:var(--accent);text-decoration:none;}
+a:hover{text-decoration:underline;}
+
+/* === PAGE === */
+.page{max-width:900px;margin:0 auto;padding:0 1.25rem 5rem;}
+
+/* === HEADER === */
+.site-header{padding:2.5rem 0 1.75rem;border-bottom:1px solid var(--border);margin-bottom:1.5rem;display:flex;align-items:flex-end;justify-content:space-between;gap:1.25rem;flex-wrap:wrap;}
+.hdr-eyebrow{font-family:'DM Mono',monospace;font-size:.63rem;letter-spacing:.13em;text-transform:uppercase;color:var(--text-3);margin-bottom:.45rem;}
+.hdr-title{font-family:'Playfair Display',Georgia,serif;font-weight:600;font-size:clamp(1.4rem,3.5vw,2rem);line-height:1.15;color:var(--text-1);}
+.hdr-meta{font-size:.78rem;color:var(--text-3);margin-top:.3rem;font-variant-numeric:tabular-nums;}
+.hdr-stats{display:flex;gap:1.75rem;align-items:flex-end;flex-shrink:0;}
+.stat{text-align:right;}
+.stat-num{font-family:'Playfair Display',Georgia,serif;font-size:2rem;font-weight:500;line-height:1;font-variant-numeric:tabular-nums;}
+.stat-label{font-size:.7rem;color:var(--text-3);margin-top:.1rem;}
+
+/* === FILTERS === */
+.filters{display:flex;align-items:center;gap:.4rem;flex-wrap:wrap;margin-bottom:.75rem;}
+.filter-label{font-size:.7rem;font-weight:500;letter-spacing:.09em;text-transform:uppercase;color:var(--text-3);margin-right:.25rem;}
+.filter-pill{font-size:.77rem;font-weight:500;padding:.28rem .75rem;border-radius:100px;border:1px solid var(--border);background:var(--surface);color:var(--text-2);transition:border-color .12s,color .12s,background .12s;}
+.filter-pill:hover{border-color:var(--accent);color:var(--accent);}
+.filter-pill.active{background:var(--accent);border-color:var(--accent);color:#fff;}
+
+.summary-bar{font-size:.78rem;color:var(--text-3);margin-bottom:1.1rem;font-variant-numeric:tabular-nums;}
+.search-wrap{margin-bottom:.65rem;position:relative;}
+.search-input{width:100%;padding:.42rem .9rem .42rem 2.1rem;border:1px solid var(--border);border-radius:6px;background:var(--surface);color:var(--text-1);font-family:'DM Sans',system-ui,sans-serif;font-size:.84rem;outline:none;transition:border-color .15s;}
+.search-input::placeholder{color:var(--text-3);}
+.search-input:focus{border-color:var(--accent);}
+.search-icon{position:absolute;left:.6rem;top:50%;transform:translateY(-50%);width:13px;height:13px;opacity:.35;pointer-events:none;}
+.search-clear{position:absolute;right:.55rem;top:50%;transform:translateY(-50%);background:none;border:none;padding:.15rem .3rem;cursor:pointer;color:var(--text-3);font-size:1.1rem;line-height:1;display:none;}
+.search-clear.visible{display:block;}
+
+/* === CARDS === */
+.cards{display:flex;flex-direction:column;gap:1rem;}
+
+.card{background:var(--surface);border:1px solid var(--border);border-radius:6px;box-shadow:var(--shadow);display:flex;overflow:hidden;transition:box-shadow .18s;}
+.card:hover{box-shadow:var(--shadow-hov);}
+.card.status-not_interested{opacity:.65;}
+.card.status-not_proceeding{opacity:.6;}
+
+.card-stripe{width:5px;flex-shrink:0;}
+.card[data-fit="high"]   .card-stripe{background:var(--fit-hi);}
+.card[data-fit="medium"] .card-stripe{background:var(--fit-md);}
+.card[data-fit="low"]    .card-stripe{background:var(--fit-lo);}
+.card[data-fit="review"] .card-stripe{background:var(--fit-rv);}
+
+.card-body{flex:1;padding:1.2rem 1.4rem 1.05rem;min-width:0;}
+
+/* Head row */
+.card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:.6rem;margin-bottom:.12rem;}
+.card-company{font-family:'DM Mono',monospace;font-size:.63rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text-3);line-height:1.4;}
+.badges{display:flex;gap:.35rem;align-items:center;flex-shrink:0;flex-wrap:wrap;justify-content:flex-end;}
+
+.fit-badge,.status-chip,.dl-badge{font-size:.62rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:.17rem .52rem;border-radius:100px;white-space:nowrap;}
+.card[data-fit="high"]   .fit-badge{background:var(--fit-hi-bg);color:var(--fit-hi);}
+.card[data-fit="medium"] .fit-badge{background:var(--fit-md-bg);color:var(--fit-md);}
+.card[data-fit="low"]    .fit-badge{background:var(--fit-lo-bg);color:var(--fit-lo);}
+.card[data-fit="review"] .fit-badge{background:var(--fit-rv-bg);color:var(--fit-rv);}
+
+.chip-applied   {background:var(--st-app-bg); color:var(--st-applied);}
+.chip-waiting   {background:var(--st-wait-bg);color:var(--st-wait);}
+.chip-passed    {background:var(--st-pass-bg);color:var(--st-pass);}
+.chip-followup  {background:var(--st-fu-bg);  color:var(--st-followup);animation:pulse 2s infinite;}
+.chip-closed    {background:var(--st-closed-bg);color:var(--st-closed);}
+.chip-new       {display:none;}
+
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.6;}}
+
+.dl-badge{background:var(--fit-lo-bg);color:var(--fit-lo);}
+.dl-badge.soon{animation:pulse 2s infinite;}
+
+/* Title + Meta */
+.card-title{font-family:'Playfair Display',Georgia,serif;font-size:1.08rem;font-weight:600;line-height:1.25;color:var(--text-1);margin-bottom:.4rem;text-wrap:balance;}
+.card-meta{display:flex;flex-wrap:wrap;gap:.3rem .85rem;font-size:.77rem;color:var(--text-2);margin-bottom:.9rem;font-variant-numeric:tabular-nums;}
+.meta-item{display:flex;align-items:center;gap:.28rem;}
+.meta-item svg{width:12px;height:12px;opacity:.4;flex-shrink:0;}
+
+/* Follow-up alert */
+.followup-alert{background:var(--st-fu-bg);border:1px solid rgba(196,78,10,.2);border-radius:4px;padding:.5rem .75rem;font-size:.78rem;color:var(--st-followup);margin-bottom:.85rem;display:flex;align-items:center;gap:.5rem;}
+.followup-alert svg{width:14px;height:14px;flex-shrink:0;}
+
+/* 3-col insight grid */
+.card-insights{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.7rem 1.4rem;margin-bottom:.75rem;}
+@media(max-width:600px){.card-insights{grid-template-columns:1fr;}}
+
+.section-label{font-size:.6rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--text-3);margin-bottom:.38rem;}
+
+.fit-list,.gap-list{list-style:none;display:flex;flex-direction:column;gap:.28rem;}
+.fit-list li,.gap-list li{font-size:.79rem;color:var(--text-2);line-height:1.5;padding-left:.95rem;position:relative;}
+.fit-list li::before{content:'\2713 ';position:absolute;left:0;font-size:.67rem;color:var(--fit-hi);font-weight:700;top:.06em;}
+.gap-list  li::before{content:'\25B3 ';position:absolute;left:0;font-size:.58rem;color:var(--fit-md);top:.14em;}
+.snapshot-text{font-size:.79rem;color:var(--text-2);line-height:1.6;}
+
+/* Expandable sections */
+.expand-sections{border-top:1px solid var(--border-sub);margin-bottom:.75rem;}
+
+.expand-toggle{width:100%;background:none;border:none;border-bottom:1px solid var(--border-sub);padding:.55rem 0;display:flex;align-items:center;justify-content:space-between;font-size:.75rem;font-weight:600;color:var(--text-2);letter-spacing:.03em;text-align:left;gap:.5rem;}
+.expand-toggle:hover{color:var(--text-1);}
+.expand-toggle .chevron{font-size:.65rem;transition:transform .18s;flex-shrink:0;}
+.expand-toggle.open .chevron{transform:rotate(180deg);}
+.expand-toggle:last-of-type{border-bottom:none;}
+
+.expand-content{display:none;padding:.7rem 0 .5rem;border-bottom:1px solid var(--border-sub);}
+.expand-content.open{display:block;}
+.expand-content:last-child{border-bottom:none;}
+
+.context-block{margin-bottom:.65rem;}
+.context-block:last-child{margin-bottom:0;}
+.context-label{font-size:.6rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--text-3);margin-bottom:.3rem;}
+.context-body{font-size:.8rem;color:var(--text-2);line-height:1.6;}
+
+/* People section */
+.people-grid{display:flex;flex-direction:column;gap:.55rem;}
+.person-row{display:flex;align-items:flex-start;gap:.6rem;}
+.person-role-label{font-family:'DM Mono',monospace;font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;color:var(--text-3);min-width:5rem;padding-top:.1rem;flex-shrink:0;}
+.person-info{font-size:.8rem;color:var(--text-2);line-height:1.45;}
+.person-info strong{color:var(--text-1);font-weight:500;}
+.person-info a{color:var(--accent);font-size:.75rem;}
+.person-note{font-size:.73rem;color:var(--text-3);font-style:italic;}
+
+.contacts-divider{font-size:.6rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-3);margin:.55rem 0 .4rem;}
+
+/* User notes display */
+.user-notes-label{font-size:.6rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text-3);margin-bottom:.3rem;}
+.notes-textarea{font-family:'DM Sans',system-ui,sans-serif;font-size:.8rem;color:var(--text-1);background:var(--surface-2);border:1px solid var(--border);border-radius:4px;padding:.5rem .65rem;width:100%;resize:vertical;min-height:72px;outline:none;line-height:1.55;transition:border-color .12s;}
+.notes-textarea:focus{border-color:var(--accent);}
+.notes-textarea::placeholder{color:var(--text-3);}
+.btn-save-note{font-size:.73rem;font-weight:600;color:var(--accent);background:none;border:1px solid var(--accent);padding:.26rem .65rem;border-radius:4px;transition:background .12s;margin-top:.4rem;}
+.btn-save-note:hover{background:var(--accent-dim);}
+
+/* Card footer */
+.card-footer{display:flex;align-items:center;justify-content:space-between;gap:.6rem;padding-top:.85rem;border-top:1px solid var(--border-sub);flex-wrap:wrap;}
+.posted-meta{font-family:'DM Mono',monospace;font-size:.65rem;color:var(--text-3);letter-spacing:.04em;}
+.card-actions{display:flex;gap:.4rem;align-items:center;flex-wrap:wrap;}
+
+.btn-ghost{font-size:.76rem;color:var(--text-2);background:none;border:1px solid var(--border);padding:.3rem .65rem;border-radius:4px;transition:background .12s,color .12s;}
+.btn-ghost:hover{background:var(--surface-2);color:var(--text-1);}
+.btn-ghost.danger:hover{border-color:var(--fit-lo);color:var(--fit-lo);}
+
+.btn-secondary{font-size:.76rem;color:var(--accent);background:none;border:1px solid var(--accent);padding:.3rem .65rem;border-radius:4px;transition:background .12s;}
+.btn-secondary:hover{background:var(--accent-dim);}
+
+.btn-primary{font-size:.8rem;font-weight:600;color:#fff;background:var(--accent);border:none;padding:.34rem .95rem;border-radius:4px;transition:opacity .12s;}
+.btn-primary:hover{opacity:.82;}
+
+.btn-applied-mark{font-size:.76rem;font-weight:600;color:var(--fit-hi);background:var(--fit-hi-bg);border:1px solid transparent;padding:.3rem .65rem;border-radius:4px;transition:opacity .12s;}
+.btn-applied-mark:hover{opacity:.8;}
+
+/* === MODALS === */
+.modal-overlay{position:fixed;inset:0;background:rgba(20,18,16,.52);display:flex;align-items:center;justify-content:center;z-index:200;padding:1.25rem;opacity:0;pointer-events:none;transition:opacity .18s;}
+.modal-overlay.open{opacity:1;pointer-events:all;}
+.modal{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1.75rem;width:100%;max-width:520px;box-shadow:0 10px 50px rgba(0,0,0,.22);transform:translateY(10px);transition:transform .18s;}
+.modal-overlay.open .modal{transform:translateY(0);}
+.modal-title{font-family:'Playfair Display',Georgia,serif;font-size:1.1rem;font-weight:600;margin-bottom:.2rem;color:var(--text-1);}
+.modal-sub{font-size:.8rem;color:var(--text-2);margin-bottom:1.25rem;}
+.field-group{margin-bottom:1rem;}
+.field-label{display:block;font-size:.71rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text-3);margin-bottom:.35rem;}
+.field-input,.field-textarea,.field-date{font-family:'DM Sans',system-ui,sans-serif;font-size:.84rem;color:var(--text-1);background:var(--surface-2);border:1px solid var(--border);border-radius:4px;padding:.52rem .72rem;width:100%;outline:none;transition:border-color .12s;}
+.field-input::placeholder,.field-textarea::placeholder{color:var(--text-3);}
+.field-input:focus,.field-textarea:focus,.field-date:focus{border-color:var(--accent);}
+.field-textarea{resize:vertical;min-height:120px;}
+.field-error{border-color:var(--fit-lo)!important;}
+.field-hint{font-size:.71rem;color:var(--text-3);margin-top:.28rem;}
+.field-hint.err{color:var(--fit-lo);}
+.modal-actions{display:flex;justify-content:flex-end;gap:.5rem;margin-top:1.25rem;border-top:1px solid var(--border-sub);padding-top:1rem;}
+.btn-cancel{font-size:.8rem;padding:.36rem .82rem;background:none;border:1px solid var(--border);border-radius:4px;color:var(--text-2);}
+.btn-cancel:hover{background:var(--surface-2);}
+.btn-submit{font-size:.82rem;font-weight:600;padding:.36rem 1rem;background:var(--accent);border:none;border-radius:4px;color:#fff;transition:opacity .12s;}
+.btn-submit:hover{opacity:.82;}
+.btn-submit.danger{background:var(--fit-lo);}
+.btn-add-role{font-size:.74rem;font-weight:600;color:var(--accent);background:var(--accent-dim);border:1px solid var(--accent);padding:.28rem .72rem;border-radius:4px;margin-left:auto;transition:opacity .12s;white-space:nowrap;}
+.btn-add-role:hover{opacity:.75;}
+.field-select{font-family:'DM Sans',system-ui,sans-serif;font-size:.84rem;color:var(--text-1);background:var(--surface-2);border:1px solid var(--border);border-radius:4px;padding:.52rem .72rem;width:100%;outline:none;transition:border-color .12s;appearance:none;cursor:pointer;}
+.field-select:focus{border-color:var(--accent);}
+.ar-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:0 1rem;}
+.ar-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0 1rem;}
+
+/* === TOAST === */
+.toast{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--text-1);color:var(--bg);font-size:.8rem;padding:.55rem 1rem;border-radius:5px;z-index:300;opacity:0;transform:translateY(8px);transition:opacity .2s,transform .2s;pointer-events:none;}
+.toast.show{opacity:1;transform:translateY(0);}
+
+/* === EMPTY === */
+.empty-state{text-align:center;padding:4rem 1.5rem;color:var(--text-3);font-size:.88rem;}
+
+/* === FOCUS === */
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+</style>
+
+<!-- &#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;
+     STATE LAYER  &#x2013;  agent updates this block daily
+     &#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550;&#x2550; -->
+<div id="jobs-b64" hidden="">W3siaWQiOiAiYWNtZS12cC1haS1zdHJhdGVneS0wMDEiLCAiY29tcGFueSI6ICJBY21lIEZpbmFuY2lhbCBHcm91cCIsICJzZWN0b3IiOiAiRmluYW5jaWFsIFNlcnZpY2VzIFx1MDBiNyBCYW5raW5nIiwgInRpdGxlIjogIlZpY2UgUHJlc2lkZW50LCBBSSBTdHJhdGVneSAmIEVudGVycHJpc2UgVHJhbnNmb3JtYXRpb24iLCAibG9jYXRpb24iOiAiVG9yb250bywgT04iLCAicmVtb3RlIjogIkh5YnJpZCIsICJjb21wIjogIk5vdCBsaXN0ZWQiLCAicG9zdGVkIjogIjIwMjYtMDktMTAiLCAiZGVhZGxpbmUiOiBudWxsLCAic291cmNlIjogImh0dHBzOi8vd3d3LmxpbmtlZGluLmNvbS9qb2JzLyIsICJmaXQiOiAiaGlnaCIsICJmaXRSZWFzb25zIjogWyJNYW5kYXRlIGlzIHRvIGJ1aWxkIGVudGVycHJpc2UgQUkgb3BlcmF0aW5nIG1vZGVsIGZyb20gUG9DIHRvIHByb2R1Y3Rpb24gXHUyMDE0IGRpcmVjdCBtYXRjaCB0byBpbm5vdmF0aW9uLXNwcmludCBhbmQgaW50YWtlLXRvLWRlbGl2ZXJ5IHBpcGVsaW5lIGV4cGVyaWVuY2UiLCAiUm9sZSBleHBsaWNpdGx5IHJlcXVpcmVzICdleHBlcmllbmNlIG1vdmluZyBBSSBiZXlvbmQgcHJvb2Ytb2YtY29uY2VwdHMgdG8gZW50ZXJwcmlzZSBhZG9wdGlvbiciLCAiRmluYW5jaWFsIHNlcnZpY2VzIGRvbWFpbjsgTUJBIGxpc3RlZCBhcyBwcmVmZXJyZWQgcXVhbGlmaWNhdGlvbiIsICJCdWlsZC12cy1idXkgYWR2aXNvcnkgc2NvcGUgbWFwcyBkaXJlY3RseSB0byB2ZW5kb3IgZXZhbHVhdGlvbiBhbmQgcmVwZWF0YWJsZSBpbnRha2UtdG8tZGVsaXZlcnkgcGlwZWxpbmUgd29yayJdLCAiZ2FwcyI6IFsiUm9sZSBvd25zIEFJIGVuZ2luZWVyaW5nIGFuZCBNTE9wcyBkaXJlY3RseTsgZGVwdGggcmVxdWlyZWQgaXMgbW9yZSBoYW5kcy1vbiB0ZWNobmljYWwgdGhhbiBhZHZpc29yeSBhbmQgb3BlcmF0aW5nLW1vZGVsIGRlc2lnbiIsICJWUCB0aXRsZSBpcyBhIHN0ZXAgdXA7IHBvc3RpbmcgYXNrcyBmb3IgMTUrIHllYXJzIHByb2dyZXNzaXZlIGxlYWRlcnNoaXAgc3BlY2lmaWNhbGx5IGluIEFJL2FuYWx5dGljcy90ZWNobm9sb2d5IiwgIkZhbWlsaWFyaXR5IHdpdGggcHJvcHJpZXRhcnkgYmFua2luZyBwbGF0Zm9ybXMgaXMgcHJlZmVycmVkIGFuZCBub3QgeWV0IGRlbW9uc3RyYXRlZCJdLCAic25hcHNob3QiOiAiQWNtZSBGaW5hbmNpYWwgR3JvdXAgaXMgYSBsZWFkaW5nIENhbmFkaWFuIGZpbmFuY2lhbCBpbnN0aXR1dGlvbiB3aXRoICQ1MDBCKyBBVU0sIHVuZGVyZ29pbmcgYSBtdWx0aS15ZWFyIEFJIHRyYW5zZm9ybWF0aW9uLiBUaGUgVlAgQUkgU3RyYXRlZ3kgcm9sZSBpcyBhIG5ld2x5IGNyZWF0ZWQgcG9zaXRpb24gcmVwb3J0aW5nIHRvIHRoZSBDaGllZiBEaWdpdGFsIE9mZmljZXIsIHRhc2tlZCB3aXRoIGJ1aWxkaW5nIGFuIGVudGVycHJpc2Utd2lkZSBBSSBjYXBhYmlsaXR5IGZyb20gdGhlIGdyb3VuZCB1cC4iLCAidHJpZ2dlciI6ICJOZXdseSBjcmVhdGVkIHBvc2l0aW9uLiBBY21lIGhhcyBjb21wbGV0ZWQgaXRzIEFJIHBpbG90IHBoYXNlIGFuZCBpcyBub3cgaW52ZXN0aW5nIGluIGEgY2VudHJhbGl6ZWQgQUkgZnVuY3Rpb24gdG8gc2NhbGUgbGVhcm5pbmdzIGFjcm9zcyBhbGwgYnVzaW5lc3MgdW5pdHMuIFRoZSByb2xlIHJlcG9ydHMgdG8gdGhlIENETywgc2lnbmFsbGluZyBhIGRlY2lzaW9uIHRvIHN0YW5kIHVwIGEgc2luZ2xlIGVudGVycHJpc2UgQUkgc3RyYXRlZ3kgZnVuY3Rpb24uIiwgImJpZ1BpY3R1cmUiOiAiV2l0aGluIDEyXHUyMDEzMjQgbW9udGhzIHRoaXMgcGVyc29uIGVzdGFibGlzaGVzIHRydXN0ZWQgZW50ZXJwcmlzZSBBSSBmb3VuZGF0aW9ucywgc2hpcHMgQUkgY2FwYWJpbGl0aWVzIHRoYXQgbW92ZSBidXNpbmVzcyBlY29ub21pY3MsIHN0YW5kcyB1cCBBSSBnb3Zlcm5hbmNlIGpvaW50bHkgd2l0aCBMZWdhbC9SaXNrL0NvbXBsaWFuY2UsIGFuZCBkZWZpbmVzIHRoZSBpbnRha2UtdG8tZGVsaXZlcnkgc3RhbmRhcmQgdGhhdCBldmVyeSBmdXR1cmUgaW5pdGlhdGl2ZSBpcyBtZWFzdXJlZCBhZ2FpbnN0LiIsICJoaXJpbmdNYW5hZ2VyIjogeyJuYW1lIjogbnVsbCwgInRpdGxlIjogIkNoaWVmIERpZ2l0YWwgT2ZmaWNlciIsICJsaW5rZWRpbiI6IG51bGx9LCAicmVjcnVpdGVyIjogbnVsbCwgIm15Q29udGFjdHMiOiBbXSwgInN0YXR1cyI6ICJuZXciLCAiYXBwbGllZERhdGUiOiBudWxsLCAiZm9sbG93VXBEdWUiOiBudWxsLCAiZm9sbG93VXBXaXRoIjogbnVsbCwgInVzZXJOb3RlcyI6ICJQb3N0ZWQgMyBob3VycyBiZWZvcmUgc2Nhbi4gU3Ryb25nIHN0cnVjdHVyYWwgbWF0Y2ggXHUyMDE0IHRoZSBwaHJhc2UgJ0FJLWVuYWJsZWQgb3BlcmF0aW5nIGNvbXBhbnknIGlzIGNsb3NlIHRvIHRhcmdldCBwb3NpdGlvbmluZy4gQ29uZmlybSBmdWxsIEpEIGJlZm9yZSBhcHBseWluZy4ifSwgeyJpZCI6ICJub3J0aHN0YXItZGlyLWFpZW5hYmxlbWVudC0wMDIiLCAiY29tcGFueSI6ICJOb3J0aFN0YXIgSW5zdXJhbmNlIiwgInNlY3RvciI6ICJJbnN1cmFuY2UgJiBGaW5hbmNpYWwgU2VydmljZXMgXHUwMGI3IEVudGVycHJpc2UgQUkiLCAidGl0bGUiOiAiU2VuaW9yIERpcmVjdG9yLCBBSSBCdXNpbmVzcyBFbmFibGVtZW50IiwgImxvY2F0aW9uIjogIlRvcm9udG8sIE9OIiwgInJlbW90ZSI6ICJIeWJyaWQiLCAiY29tcCI6ICJOb3QgbGlzdGVkIiwgInBvc3RlZCI6ICIyMDI2LTA5LTA3IiwgImRlYWRsaW5lIjogbnVsbCwgInNvdXJjZSI6ICJodHRwczovL3d3dy5saW5rZWRpbi5jb20vam9icy8iLCAiZml0IjogImhpZ2giLCAiZml0UmVhc29ucyI6IFsiTWFuZGF0ZSBpcyBlbmFibGluZyBlZmZlY3RpdmUsIHJlc3BvbnNpYmxlLCB2YWx1ZS1kcml2ZW4gQUkgYWRvcHRpb24gYWNyb3NzIHRoZSBidXNpbmVzcyBcdTIwMTQgYSBuZWFyLWV4YWN0IG1hdGNoIHRvIGFnZW50aWMgQUkgb3BlcmF0aW5nIG1vZGVsIGFuZCBQb0MtdG8tcHJvZHVjdGlvbiBwaXBlbGluZSB3b3JrIiwgIkNvcmUgZHV0aWVzIG1pcnJvciBleGVjdXRpdmUgYWR2aXNvcnkgYW5kIEFJIHNhbmRib3ggZXhwZXJpZW5jZSIsICJEaXJlY3Rvci1sZXZlbCByb2xlIGF0IGEgbWFqb3IgQ2FuYWRpYW4gZmluYW5jaWFsIHNlcnZpY2VzIGluc3RpdHV0aW9uIFx1MjAxNCBzYW1lIHBlZXIgZ3JvdXAgYXMgdGFyZ2V0IGVtcGxveWVycyIsICJSZXF1aXJlcyBzdGFrZWhvbGRlciBpbmZsdWVuY2Ugd2l0aG91dCBkaXJlY3QgYXV0aG9yaXR5IGFuZCBzeXN0ZW1zIHRoaW5raW5nLCBtYXRjaGluZyBjcm9zcy1mdW5jdGlvbmFsIGlubm92YXRpb24gc3ByaW50IGxlYWRlcnNoaXAgKDE1MCsgcGFydGljaXBhbnRzLCA0MCUrIHRvIHByb2R1Y3Rpb24pIl0sICJnYXBzIjogWyJQb3N0ZWQgc2V2ZXJhbCBtb250aHMgYWdvOyBtdXN0IHZlcmlmeSB0aGUgcm9sZSBpcyBzdGlsbCBvcGVuIGJlZm9yZSBhcHBseWluZyIsICJJbnN1cmFuY2Uvd2VhbHRoIHByb2R1Y3QgYW5kIHJlZ3VsYXRvcnkgY29udGV4dCBpcyBhIG5ldyBkb21haW4iLCAiVmVyaWZ5IGZ1bGwgY29tcCBwYWNrYWdlIChib251cy9MVEkpIGJlZm9yZSBwdXJzdWluZyJdLCAic25hcHNob3QiOiAiTm9ydGhTdGFyIEluc3VyYW5jZSBpcyBzdGFuZGluZyB1cCBBSSBlbmFibGVtZW50IGZ1bmN0aW9ucyBlbWJlZGRlZCBpbiBpdHMgaW5kaXZpZHVhbCBidXNpbmVzcyBsaW5lcy4gVGhpcyByb2xlIG93bnMgZWZmZWN0aXZlLCByZXNwb25zaWJsZSBhbmQgdmFsdWUtZHJpdmVuIEFJIGFkb3B0aW9uIGluc2lkZSB0aGUgQ2FuYWRpYW4gT3BlcmF0aW9ucyBidXNpbmVzcyB1bml0IFx1MjAxNCBhIDUsMDAwKyBwZXJzb24gb3JnYW5pemF0aW9uLiIsICJ0cmlnZ2VyIjogIk5ld2x5IGZvcm1lZCBlbnRlcnByaXNlIERpZ2l0YWwgU3RyYXRlZ3kgJiBEZXNpZ24gZnVuY3Rpb24gaXMgc3RhbmRpbmcgdXAgZGVkaWNhdGVkIEFJIGVuYWJsZW1lbnQgY2FwYWNpdHkgdG8gbW92ZSBBSSBmcm9tIHBpbG90cyB0byBnb3Zlcm5lZCwgdmFsdWUtdHJhY2tlZCBhZG9wdGlvbiBhY3Jvc3MgYnVzaW5lc3MgdW5pdHMuIiwgImJpZ1BpY3R1cmUiOiAiV2l0aGluIDEyXHUyMDEzMjQgbW9udGhzLCBzdGFuZCB1cCBhIHJlcGVhdGFibGUgQUkgb3Bwb3J0dW5pdHktdG8tdmFsdWUgcGlwZWxpbmUgZm9yIENhbmFkaWFuIE9wZXJhdGlvbnMgXHUyMDE0IGEgcG9ydGZvbGlvIG9mIHByaW9yaXRpemVkLCBidXNpbmVzcy1jYXNlZCBBSSB1c2UgY2FzZXMgbW92aW5nIGZyb20gaWRlYSB0byBtZWFzdXJhYmxlIHZhbHVlIHJlYWxpemF0aW9uLCB3aXRoIHJlc3BvbnNpYmxlLUFJIGd1YXJkcmFpbHMgZW1iZWRkZWQuIiwgImhpcmluZ01hbmFnZXIiOiB7Im5hbWUiOiBudWxsLCAidGl0bGUiOiAiVlAsIEFJIFN0cmF0ZWd5IChsaWtlbHkgXHUyMDE0IG5vdCBjb25maXJtZWQpIiwgImxpbmtlZGluIjogbnVsbH0sICJyZWNydWl0ZXIiOiBudWxsLCAibXlDb250YWN0cyI6IFt7InRpdGxlIjogIlZpY2UgUHJlc2lkZW50LCBBcHBsaWNhdGlvbiBEZWxpdmVyeSIsICJuYW1lIjogIkFsZXggQ2hlbiIsICJub3RlIjogIjFzdC1kZWdyZWUgY29ubmVjdGlvbiBcdTIwMTQgY29uZmlybWVkIHdvcmtzIGF0IE5vcnRoU3RhciJ9LCB7InRpdGxlIjogIlNlbmlvciBUcmFuc2Zvcm1hdGlvbiAmIFN0cmF0ZWd5IExlYWRlciIsICJuYW1lIjogIlByaXlhIFNoYXJtYSIsICJub3RlIjogIjFzdC1kZWdyZWUgY29ubmVjdGlvbiBhdCBOb3J0aFN0YXIifV0sICJzdGF0dXMiOiAiYXBwbGllZCIsICJhcHBsaWVkRGF0ZSI6ICIyMDI2LTA5LTA4IiwgImZvbGxvd1VwRHVlIjogIjIwMjYtMDktMjIiLCAiZm9sbG93VXBXaXRoIjogIkFsZXggQ2hlbiIsICJ1c2VyTm90ZXMiOiAiU3Ryb25nZXN0IG5ldyBtYXRjaCB0aGlzIHNjYW4gXHUyMDE0IEpEIHJlYWRzIGxpa2UgYSBkaXJlY3QgcmVzdGF0ZW1lbnQgb2YgdGFyZ2V0IG1hbmRhdGUuIENvbmZpcm0gcG9zdGluZyBpcyBzdGlsbCBhY3RpdmUgYW5kIGlkZW50aWZ5IHRoZSBoaXJpbmcgbWFuYWdlciBvbiBMaW5rZWRJbiBiZWZvcmUgZm9sbG93aW5nIHVwLiJ9LCB7ImlkIjogImdsb2JhbGJhbmstZGlyLWFpZ292ZXJuYW5jZS0wMDMiLCAiY29tcGFueSI6ICJHbG9iYWwgQmFuayBDYW5hZGEiLCAic2VjdG9yIjogIkZpbmFuY2lhbCBTZXJ2aWNlcyBcdTAwYjcgQmFua2luZyIsICJ0aXRsZSI6ICJWaWNlIFByZXNpZGVudCwgQUkgR292ZXJuYW5jZSAmIFRyYW5zZm9ybWF0aW9uIiwgImxvY2F0aW9uIjogIlRvcm9udG8sIE9OIiwgInJlbW90ZSI6ICJPbi1zaXRlIiwgImNvbXAiOiAiTm90IGxpc3RlZCIsICJwb3N0ZWQiOiAiMjAyNi0wOC0xNCIsICJkZWFkbGluZSI6IG51bGwsICJzb3VyY2UiOiAiaHR0cHM6Ly93d3cubGlua2VkaW4uY29tL2pvYnMvIiwgImZpdCI6ICJtZWRpdW0iLCAiZml0UmVhc29ucyI6IFsiQnVpbGRpbmcgQUkgZ292ZXJuYW5jZSBmcmFtZXdvcmtzIGFuZCByZXNwb25zaWJsZS1BSSB0cmFuc2Zvcm1hdGlvbiBwcmFjdGljZXMgZGlyZWN0bHkgbWlycm9ycyBBSSBLbm93bGVkZ2UgTWFuYWdlbWVudCBzYW5kYm94IGFuZCBnb3Zlcm5hbmNlIHdvcmsiLCAiUG9zaXRpb25lZCB3aXRoaW4gdGhlIGJhbmsncyBmYXN0LXNjYWxpbmcgZW50ZXJwcmlzZSBBSSBHcm91cCIsICJBbHVtbmkgc3RhdHVzIGF0IHRoaXMgaW5zdGl0dXRpb24gcGx1cyBzdHJvbmcgZmluYW5jaWFsIHNlcnZpY2VzIGV4cGVyaWVuY2UgZ2l2ZXMgY3JlZGliaWxpdHkgZm9yIGEgZ292ZXJuYW5jZS1mYWNpbmcgQUkgcm9sZSBhdCBhIEJpZyBGaXZlIGJhbmsiXSwgImdhcHMiOiBbIlNpdHMgdW5kZXIgQXVkaXQvQ29tcGxpYW5jZS9MZWdhbC9SaXNrIHJhdGhlciB0aGFuIGEgcHVyZSBzdHJhdGVneSBmdW5jdGlvbiBcdTIwMTQgbGlrZWx5IGNhcnJpZXMgaGVhdmllciByZWd1bGF0b3J5L21vZGVsLXJpc2sgZW1waGFzaXMgdGhhbiBpbm5vdmF0aW9uLXN0cmF0ZWd5IGJhY2tncm91bmQiLCAiTWF5IHJlcXVpcmUgZGVtb25zdHJhYmxlIG1vZGVsIHJpc2sgLyByZWd1bGF0b3J5IEFJIGdvdmVybmFuY2UgY3JlZGVudGlhbHMgYmV5b25kIGdlbmVyYWwgZW50ZXJwcmlzZSBBSSBnb3Zlcm5hbmNlIGV4cGVyaWVuY2UiLCAiT24tc2l0ZSBUb3JvbnRvIG9ubHk7IG5vIGNvbXAgZGlzY2xvc2VkIl0sICJzbmFwc2hvdCI6ICJHbG9iYWwgQmFuayBDYW5hZGEncyBlbnRlcnByaXNlIEFJIEdyb3VwIGlzIHNjYWxpbmcgQUkgYWRvcHRpb24gYmFuay13aWRlIGFuZCBidWlsZGluZyB0aGUgZ292ZXJuYW5jZSBiYWNrYm9uZSBcdTIwMTQgcG9saWN5LCBtb2RlbCByaXNrIG92ZXJzaWdodCwgYW5kIHRyYW5zZm9ybWF0aW9uIGRpc2NpcGxpbmUgXHUyMDE0IHJlcXVpcmVkIHRvIGRlcGxveSBBSSBzYWZlbHkgYXQgc2NhbGUuIiwgInRyaWdnZXIiOiAiQXMgdGhlIGJhbmsncyBBSSBHcm91cCBhY2NlbGVyYXRlcyBhZG9wdGlvbiBhY3Jvc3MgdGhlIGVudGVycHJpc2UsIHRoaXMgcm9sZSB3YXMgY3JlYXRlZCB0byBlbnN1cmUgQUkgZGVwbG95bWVudHMgbWVldCByZWd1bGF0b3J5IGFuZCByZXNwb25zaWJsZS1BSSBzdGFuZGFyZHMsIHBhcnRuZXJpbmcgd2l0aCBBdWRpdCwgQ29tcGxpYW5jZSwgTGVnYWwgYW5kIFJpc2suIiwgImJpZ1BpY3R1cmUiOiAiSW4gMTJcdTIwMTMyNCBtb250aHMsIHN0YW5kIHVwIHRoZSBiYW5rJ3MgQUkgZ292ZXJuYW5jZSBvcGVyYXRpbmcgbW9kZWwgXHUyMDE0IHBvbGljaWVzLCBtb2RlbCByaXNrIGZyYW1ld29ya3MsIGFuZCB0cmFuc2Zvcm1hdGlvbiBwcm9jZXNzZXMgXHUyMDE0IHBhcnRuZXJpbmcgYWNyb3NzIEF1ZGl0LCBDb21wbGlhbmNlLCBMZWdhbCBhbmQgUmlzayB0byBsZXQgQUkgc2NhbGUgc2FmZWx5IGJhbmstd2lkZS4iLCAiaGlyaW5nTWFuYWdlciI6IHsibmFtZSI6IG51bGwsICJ0aXRsZSI6IG51bGwsICJsaW5rZWRpbiI6IG51bGx9LCAicmVjcnVpdGVyIjogbnVsbCwgIm15Q29udGFjdHMiOiBbeyJ0aXRsZSI6ICJTZW5pb3IgRGlyZWN0b3IsIEFJIGFuZCBEaWdpdGFsIFByb2R1Y3QgSW5ub3ZhdGlvbiIsICJuYW1lIjogIlphaGlyYSBEaGFsd2FuaSIsICJub3RlIjogIjFzdC1kZWdyZWUgY29ubmVjdGlvbiBcdTIwMTQgZGlyZWN0bHkgcmVsZXZhbnQgdG8gQUkgcm9sZXMgYXQgdGhpcyBiYW5rIn0sIHsidGl0bGUiOiAiUHJvZ3JhbSBEaXJlY3RvciIsICJuYW1lIjogIlBhbmthaiBSYXR1ciIsICJub3RlIjogIjFzdC1kZWdyZWUgY29ubmVjdGlvbiBcdTIwMTQgMTI5IG11dHVhbCBjb25uZWN0aW9ucyJ9XSwgInN0YXR1cyI6ICJ3YWl0aW5nIiwgImFwcGxpZWREYXRlIjogIjIwMjYtMDgtMjAiLCAiZm9sbG93VXBEdWUiOiAiMjAyNi0wOS0xNCIsICJmb2xsb3dVcFdpdGgiOiAiWmFoaXJhIERoYWx3YW5pIiwgInVzZXJOb3RlcyI6ICJHb3Zlcm5hbmNlIGFuZ2xlIHBsYXlzIGRpcmVjdGx5IHRvIEFJIEtub3dsZWRnZSBNYW5hZ2VtZW50IHNhbmRib3ggYW5kIGJ1aWxkLXZzLWJ1eSBhZHZpc29yeSBiYWNrZ3JvdW5kLiJ9XQ==</div>
+<!-- Decision modal -->
+<div class="modal-overlay" id="decision-modal">
+  <div class="modal">
+    <p class="modal-title" id="dm-title">Not Interested</p>
+    <p class="modal-sub" id="dm-sub">Payments and Open Banking Consulting, Director &#xB7; PwC Canada</p>
+    <div class="field-group">
+      <label class="field-label" for="dm-reason">Why? <span style="font-weight:400;text-transform:none;letter-spacing:0">(helps me filter better next time)</span></label>
+      <textarea class="field-textarea" id="dm-reason" placeholder="e.g. waiting to hear back from CPPIB first; comp too low; scope unclear&#x2026;" style="min-height:100px;"></textarea>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" id="dm-cancel">Cancel</button>
+      <button class="btn-submit" id="dm-submit">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Apply modal -->
+<div class="modal-overlay" id="apply-modal">
+  <div class="modal">
+    <p class="modal-title" id="am-title">Start Application</p>
+    <p class="modal-sub" id="am-sub">Senior Director, AI Reuse &amp; Development &#xB7; RBC &#x2014; add the JD below, then copy the prompt and paste it into a new Claude conversation.</p>
+    <div class="field-group">
+      <label class="field-label" for="am-url">Job Posting URL <span style="font-weight:400;text-transform:none;letter-spacing:0">(optional)</span></label>
+      <input class="field-input" id="am-url" type="url" placeholder="https://linkedin.com/jobs/view/&#x2026;">
+    </div>
+    <div class="field-group">
+      <label class="field-label" for="am-jd">Job Description <span style="font-weight:400;text-transform:none;letter-spacing:0">(optional &#x2014; paste for extra tailoring)</span></label>
+      <textarea class="field-textarea" id="am-jd" placeholder="Paste the full JD to mirror its language in the resume &#x2014; or leave blank and I'll draft from what's already on the card&#x2026;"></textarea>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" id="am-cancel">Cancel</button>
+      <button class="btn-submit" id="am-submit" disabled="" style="opacity: 0.5;">&#x2713; Copied</button><a id="am-open-link" href="https://claude.ai/share/f5629ca9-bd13-411a-8ac2-1ca7b06e7c2c" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; background: rgb(26, 122, 74); color: rgb(255, 255, 255); padding: 0.5rem 1.2rem; border-radius: 5px; font-size: 0.85rem; font-weight: 600; text-decoration: none; font-family: inherit; cursor: pointer;">Open conversation &#x2192;</a>
+    </div>
+  </div>
+</div>
+
+<!-- Applied-date modal -->
+<div class="modal-overlay" id="applied-modal">
+  <div class="modal">
+    <p class="modal-title">Mark as Applied</p>
+    <p class="modal-sub" id="apm-sub">Senior Director, AI Business Enablement &#xB7; RBC</p>
+    <div class="field-group">
+      <label class="field-label" for="apm-date">Application date</label>
+      <input class="field-date" id="apm-date" type="date">
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" id="apm-cancel">Cancel</button>
+      <button class="btn-submit btn-applied-mark" id="apm-submit" style="background:var(--fit-hi);color:#fff;">Confirm Applied &#x2713;</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add Role modal -->
+<div class="modal-overlay" id="add-role-modal">
+  <div class="modal" style="max-width:560px;">
+    <p class="modal-title">Add Role</p>
+    <p class="modal-sub">Found something outside the scan? Log it here &#x2014; I'll add it to the board and you can start an application from the card.</p>
+    <div class="ar-grid-2">
+      <div class="field-group">
+        <label class="field-label" for="ar-company">Company <span style="color:var(--fit-lo);font-weight:700">*</span></label>
+        <input class="field-input" id="ar-company" type="text" placeholder="e.g. Shopify">
+      </div>
+      <div class="field-group">
+        <label class="field-label" for="ar-fit">Fit</label>
+        <select class="field-select" id="ar-fit">
+          <option value="review">? Review</option>
+          <option value="high">High</option>
+          <option value="medium">Medium</option>
+          <option value="low">Low</option>
+        </select>
+      </div>
+    </div>
+    <div class="field-group">
+      <label class="field-label" for="ar-title">Role Title <span style="color:var(--fit-lo);font-weight:700">*</span></label>
+      <input class="field-input" id="ar-title" type="text" placeholder="e.g. Director, Technology Strategy">
+    </div>
+    <div class="field-group">
+      <label class="field-label" for="ar-url">Job Posting URL <span style="font-weight:400;text-transform:none;letter-spacing:0">(optional)</span></label>
+      <input class="field-input" id="ar-url" type="url" placeholder="https://linkedin.com/jobs/view/&#x2026;">
+    </div>
+    <div class="ar-grid-2">
+      <div class="field-group">
+        <label class="field-label" for="ar-location">Location</label>
+        <input class="field-input" id="ar-location" type="text" placeholder="Toronto, ON">
+      </div>
+      <div class="field-group">
+        <label class="field-label" for="ar-remote">Work Mode</label>
+        <select class="field-select" id="ar-remote">
+          <option value="Hybrid">Hybrid</option>
+          <option value="Remote">Remote</option>
+          <option value="In-office">In-office</option>
+        </select>
+      </div>
+    </div>
+    <div class="ar-grid-2">
+      <div class="field-group">
+        <label class="field-label" for="ar-comp">Comp Range <span style="font-weight:400;text-transform:none;letter-spacing:0">(optional)</span></label>
+        <input class="field-input" id="ar-comp" type="text" placeholder="e.g. $150K&#x2013;$200K CAD">
+      </div>
+      <div class="field-group">
+        <label class="field-label" for="ar-status">Status</label>
+        <select class="field-select" id="ar-status">
+          <option value="new">New / Considering</option>
+          <option value="applied">Already Applied</option>
+        </select>
+      </div>
+    </div>
+    <div class="field-group">
+      <label class="field-label" for="ar-notes">Notes <span style="font-weight:400;text-transform:none;letter-spacing:0">(optional)</span></label>
+      <textarea class="field-input" id="ar-notes" style="min-height:68px;resize:vertical;" placeholder="e.g. recruiter reached out on LinkedIn, deadline Sep 5, referral from Cynthia&#x2026;"></textarea>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" id="ar-cancel">Cancel</button>
+      <button class="btn-submit" id="ar-submit">Add to Board &#x2192;</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast">Prompt copied &#x2713; &#x2014; click "Open conversation &#x2192;" to continue</div>
+
+<!-- Page -->
+<div class="page">
+  <header class="site-header">
+    <div>
+      <p class="hdr-eyebrow">Director · VP · AI Strategy &amp; Enterprise Transformation</p>
+      <h1 class="hdr-title">AI Strategy Job Board</h1>
+      <p class="hdr-meta" id="hdr-meta">Demo board · 3 sample roles · Add your own using the + button</p>
+    </div>
+    <div class="hdr-stats">
+      <div class="stat"><div class="stat-num" id="stat-total">3</div><div class="stat-label">Roles</div></div>
+      <div class="stat"><div class="stat-num" id="stat-high" style="color:var(--fit-hi)">2</div><div class="stat-label">High fit</div></div>
+      <div class="stat"><div class="stat-num" id="stat-applied" style="color:var(--accent)">1</div><div class="stat-label">Applied</div></div>
+      <div class="stat"><div class="stat-num" id="stat-high-applied" style="color:var(--fit-hi)">1</div><div class="stat-label">High &#xB7; applied</div></div>
+    </div>
+  </header>
+
+  <div class="filters">
+    <span class="filter-label">Show</span>
+    <button class="filter-pill active" data-filter="new">New</button>
+    <button class="filter-pill" data-filter="applied">Applied</button>
+    <button class="filter-pill" data-filter="followup">Follow-up</button>
+    <button class="filter-pill" data-filter="waiting">Waiting</button>
+    <button class="filter-pill" data-filter="review">? Review</button>
+    <button class="filter-pill" data-filter="not_proceeding">Not Proceeding</button>
+    <button class="filter-pill" data-filter="not_interested">Passed</button>
+    <button class="filter-pill" data-filter="all">All</button>
+    <button class="btn-add-role" id="btn-add-role">+ Add Role</button>
+  </div>
+  <div class="search-wrap">
+    <svg class="search-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="6.5" cy="6.5" r="4"></circle><path d="M10 10L13 13" stroke-linecap="round"></path></svg>
+    <input class="search-input" id="search-input" type="search" placeholder="Search company, role, sector, notes&#x2026;" autocomplete="off" spellcheck="false">
+    <button class="search-clear" id="search-clear" aria-label="Clear search" title="Clear">&#xD7;</button>
+  </div>  <p class="summary-bar" id="summary-bar">1 applied · 1 follow-up overdue · 1 waiting</p>
+  <div class="cards" id="cards"></div>
+
+<script>
+/* \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
+   STATE
+   \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 */
+const _b64d=document.getElementById('jobs-b64').textContent.trim();const JOBS=JSON.parse(new TextDecoder().decode(new Uint8Array([...atob(_b64d)].map(function(c){return c.charCodeAt(0)}))));
+
+const SCAN_DATE = '2026-09-21';
+const LAST_SCAN_AT = '2026-09-21T09:00:00Z';
+const LAST_UPDATE_AT = '2026-09-10T18:20:01.424Z'; /*UPD*/
+const TODAY         = new Date().toISOString().split('T')[0];
+
+/* \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
+   PERSISTENCE
+   \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 */
+async function persist() {
+  let artifact = null;
+  try { artifact = await claude.use('artifact'); } catch(e) {}
+  if (!artifact) { showToast('Status saved locally (sign in as owner to sync)'); return; }
+  const _enc=new TextEncoder();const _byt=_enc.encode(JSON.stringify(JOBS));let _bstr='';for(let _i=0;_i<_byt.length;_i+=4096){_bstr+=String.fromCharCode(...Array.from(_byt.slice(_i,_i+4096)));}document.getElementById('jobs-b64').textContent=btoa(_bstr);
+  try {
+    let _bHtml=("<!doctype html>"+document.documentElement.outerHTML).replace(/[^\x00-\x7F]/g,function(c){return "&#x"+c.charCodeAt(0).toString(16).toUpperCase()+";";});
+    /* stamp LAST_UPDATE_AT so the header reflects edits made from this page. Never touch LAST_SCAN_AT: only a scan may move that. */
+    var _mk='/*'+'UPD'+'*/';
+    var _reUpd=new RegExp("const LAST_UPDATE_AT\\s*=\\s*'[^']*';\\s*\\/\\*UPD\\*\\/");
+    if(_reUpd.test(_bHtml)){_bHtml=_bHtml.replace(_reUpd,"const LAST_UPDATE_AT = '"+new Date().toISOString()+"'; "+_mk);}
+    await artifact.publish(_bHtml);
+    showToast('Saved \u2713');
+    // Drive backup \u2014 runs after artifact is saved; never blocks the main save
+    try {
+      const mcp = await claude.use('mcp');
+      if (mcp) {
+        const FOLDER_ID = '';
+        const jsonStr = JSON.stringify(JOBS);
+        const searchRes = await mcp.callTool('Google Drive', 'search_files', {
+          query: "title = 'job-board-data.json' and parentId = '" + FOLDER_ID + "'"
+        });
+        const existing = (searchRes && searchRes.payload && searchRes.payload.files) || [];
+        for (const f of existing) {
+          await mcp.callTool('Google Drive', 'trash_file', { fileId: f.id });
+        }
+        await mcp.callTool('Google Drive', 'create_file', {
+          title: 'job-board-data.json',
+          parentId: FOLDER_ID,
+          textContent: jsonStr,
+          contentMimeType: 'application/json',
+          disableConversionToGoogleType: true
+        });
+      }
+    } catch(driveErr) { /* Drive backup is best-effort; never surface to user */ }
+  } catch (e) {
+    showToast('Could not save: ' + (e.message || 'unknown error'));
+  }
+}
+
+/* \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
+   DATE HELPERS
+   \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 */
+function fmtDate(s) {
+  return new Date(s + 'T12:00:00').toLocaleDateString('en-CA', { month: 'short', day: 'numeric', year: 'numeric' });
+}
+function addBizDays(s, n) {
+  const d = new Date(s + 'T12:00:00');
+  let added = 0;
+  while (added < n) { d.setDate(d.getDate() + 1); const w = d.getDay(); if (w && w < 6) added++; }
+  return d.toISOString().split('T')[0];
+}
+function daysUntil(s) {
+  return Math.round((new Date(s + 'T12:00:00') - new Date(TODAY + 'T12:00:00')) / 86400000);
+}
+function isPast(s) { return s && daysUntil(s) <= 0; }
+function isSoon(s) { return s && daysUntil(s) > 0 && daysUntil(s) <= 5; }
+
+/* \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
+   ICONS
+   \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 */
+const I = {
+  loc:   `<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2a4.5 4.5 0 0 1 4.5 4.5C12.5 10 8 14 8 14S3.5 10 3.5 6.5A4.5 4.5 0 0 1 8 2z"/><circle cx="8" cy="6.5" r="1.5"/></svg>`,
+  rem:   `<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="12" height="8" rx="1.5"/><path d="M5 4V3a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v1M8 12v2M5.5 14h5"/></svg>`,
+  comp:  `<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="6"/><path d="M8 5v1.5m0 3V11M6.5 7a1.5 1.5 0 0 1 3 0c0 1-1.5 1.5-1.5 2.5"/></svg>`,
+  bell:  `<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2a4 4 0 0 1 4 4v2l1.5 2.5H2.5L4 8V6a4 4 0 0 1 4-4zM6.5 12.5a1.5 1.5 0 0 0 3 0"/></svg>`
+};
+
+/* \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
+   LABEL MAPS
+   \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 */
+function fitLabel(f) { return { high:'High fit', medium:'Medium fit', low:'Low fit', review:'? Review' }[f] || f; }
+function statusChip(job) {
+  const { status, appliedDate, followUpDue } = job;
+  if (status === 'applied') {
+    const overdue = followUpDue && isPast(followUpDue);
+    if (overdue) return `<span class="status-chip chip-followup">\u23F0 Follow up</span>`;
+    return `<span class="status-chip chip-applied">\u2713 Applied ${fmtDate(appliedDate)}</span>`;
+  }
+  if (status === 'waiting')       return `<span class="status-chip chip-waiting">\u25F7 Waiting</span>`;
+  if (status === 'not_interested') return `<span class="status-chip chip-passed">\u2014 Passed</span>`;
+  if (status === 'not_proceeding') return `<span class="status-chip chip-closed">\u2717 Not Proceeding</span>`;
+  return '';
+}
+function deadlineBadge(job) {
+  if (!job.deadline) return '';
+  const d = daysUntil(job.deadline);
+  const cls = d <= 3 ? 'dl-badge soon' : 'dl-badge';
+  const label = d < 0 ? `Deadline passed` : d === 0 ? `Due today` : `Apply by ${fmtDate(job.deadline)} \u00B7 ${d}d`;
+  return `<span class="${cls}">\u26A1 ${label}</span>`;
+}
+
+/* \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
+   PERSON ROW
+   \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 */
+function personRow(roleLabel, p) {
+  if (!p || !p.name) return '';
+  const li = p.linkedin ? ` <a href="${p.linkedin}" target="_blank" rel="noopener">LinkedIn \u2197</a>` : '';
+  return `<div class="person-row">
+    <span class="person-role-label">${roleLabel}</span>
+    <div class="person-info"><strong>${p.name}</strong>, ${p.title}${li}</div>
+  </div>`;
+}
+
+/* \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
+   CARD BUILDER
+   \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 */
+function buildCard(job) {
+  const { id, fit, status, appliedDate, followUpDue, followUpWith,
+          company, sector, title, location, remote, comp, posted, deadline, source,
+          fitReasons, gaps, trigger, bigPicture, hiringManager, recruiter, myContacts, userNotes } = job;
+
+  const overdue = status === 'applied' && followUpDue && isPast(followUpDue);
+
+  /* follow-up alert strip */
+  const fuAlert = overdue ? `<div class="followup-alert">
+    ${I.bell} <span>Follow up with <strong>${followUpWith}</strong> \u2014 5 working days since you applied (${fmtDate(appliedDate)})</span>
+  </div>` : '';
+
+  /* people HTML */
+  const contactsHtml = myContacts && myContacts.length
+    ? `<p class="contacts-divider">Your LinkedIn contacts here</p>` +
+      myContacts.map(c => `<div class="person-row">
+        <span class="person-role-label">Connection</span>
+        <div class="person-info"><strong>${c.name}</strong>, ${c.title}<br><span class="person-note">${c.note}</span></div>
+      </div>`).join('')
+    : '<div style="font-size:.78rem;color:var(--text-3);font-style:italic;">No LinkedIn contacts identified at this company yet.</div>';
+
+  /* notes block */
+  const safeNotes = (userNotes || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+  /* applied meta row */
+  const appliedInfo = appliedDate ? `<div class="context-block">
+    <p class="context-label">Applied</p>
+    <p class="context-body">${fmtDate(appliedDate)}${followUpDue ? ` \u00B7 Follow up by ${fmtDate(followUpDue)}` : ''}</p>
+  </div>` : '';
+
+  /* footer actions */
+  let actions = '';
+  if (status === 'not_interested' || status === 'not_proceeding') {
+    actions = `<button class="btn-ghost" data-action="reconsider" data-id="${id}">Reconsider</button>`;
+  } else if (status === 'applied') {
+    const fuBtn = overdue
+      ? `<button class="btn-ghost" data-action="followed_up" data-id="${id}">Mark followed up \u2713</button>`
+      : `<span style="font-size:.75rem;color:var(--text-3);">Follow up by ${followUpDue ? fmtDate(followUpDue) : '\u2014'}</span>`;
+    actions = `${fuBtn}<button class="btn-ghost danger" data-action="not_proceeding" data-id="${id}" style="margin-left:.5rem;">Not Proceeding Further</button>`;
+  } else {
+    actions = `
+      <button class="btn-ghost danger" data-action="not_interested" data-id="${id}">Not interested</button>
+      <button class="btn-ghost danger" data-action="not_proceeding" data-id="${id}">Not Proceeding Further</button>
+      <button class="btn-ghost"        data-action="waiting"       data-id="${id}">Let's wait</button>
+      ${status !== 'applied' ? `<button class="btn-applied-mark" data-action="mark_applied" data-id="${id}">Mark applied \u2713</button>` : ''}
+      <button class="btn-primary"      data-action="apply"         data-id="${id}">Start Application \u2192</button>`;
+  }
+
+  const el = document.createElement('div');
+  el.className = `card status-${status}`;
+  el.dataset.fit = fit;
+  el.dataset.status = status;
+  el.dataset.id = id;
+
+  el.innerHTML = `
+    <div class="card-stripe" aria-hidden="true"></div>
+    <div class="card-body">
+
+      <div class="card-head">
+        <span class="card-company">${company}<span style="color:var(--border);margin:0 .3rem">\u00B7</span>${sector}</span>
+        <div class="badges">
+          ${deadlineBadge(job)}
+          <span class="fit-badge">${fitLabel(fit)}</span>
+          ${statusChip(job)}
+        </div>
+      </div>
+
+      <h2 class="card-title">${title}</h2>
+
+      <div class="card-meta">
+        <span class="meta-item">${I.loc} ${location}</span>
+        <span class="meta-item">${I.rem} ${remote}</span>
+        <span class="meta-item">${I.comp} ${comp}</span>
+      </div>
+
+      ${fuAlert}
+
+      <div class="card-insights">
+        <div>
+          <p class="section-label">Why it fits</p>
+          <ul class="fit-list">${fitReasons.map(r => `<li>${r}</li>`).join('')}</ul>
+        </div>
+        <div>
+          <p class="section-label">Watch for</p>
+          <ul class="gap-list">${gaps.map(g => `<li>${g}</li>`).join('')}</ul>
+        </div>
+        <div>
+          <p class="section-label">Company snapshot</p>
+          <p class="snapshot-text">${job.snapshot || ''}</p>
+        </div>
+      </div>
+
+      <div class="expand-sections">
+
+        <button class="expand-toggle" data-target="ctx-${id}">
+          <span>Role context \u2014 why this role was created</span>
+          <span class="chevron">\u25BE</span>
+        </button>
+        <div class="expand-content" id="ctx-${id}">
+          <div class="context-block">
+            <p class="context-label">What triggered this posting</p>
+            <p class="context-body">${trigger}</p>
+          </div>
+          <div class="context-block" style="margin-top:.55rem;">
+            <p class="context-label">Big picture \u2014 where this role sits</p>
+            <p class="context-body">${bigPicture}</p>
+          </div>
+        </div>
+
+        <button class="expand-toggle" data-target="ppl-${id}">
+          <span>People \u2014 hiring manager, recruiter, your contacts</span>
+          <span class="chevron">\u25BE</span>
+        </button>
+        <div class="expand-content" id="ppl-${id}">
+          <div class="people-grid">
+            ${personRow('Hiring Mgr', hiringManager)}
+            ${personRow('Recruiter', recruiter)}
+            ${contactsHtml}
+          </div>
+        </div>
+
+        <button class="expand-toggle" data-target="nt-${id}">
+          <span>Notes &amp; status${userNotes ? ' \u00B7 <span style="color:var(--accent);font-weight:400;font-size:.7rem;">has note</span>' : ''}</span>
+          <span class="chevron">\u25BE</span>
+        </button>
+        <div class="expand-content" id="nt-${id}">
+          ${appliedInfo}
+          <div style="margin-top:${appliedInfo ? '.55rem' : '0'}">
+            <p class="user-notes-label">Your notes</p>
+            <textarea class="notes-textarea" data-id="${id}" placeholder="e.g. Spoke to recruiter Sarah on Aug 25 \u2014 strong interest, next step is HM call this week\u2026">${safeNotes}</textarea>
+            <button class="btn-save-note" data-action="save-note" data-id="${id}">Save note</button>
+          </div>
+        </div>
+
+        ${job.jobDescription ? `
+        <button class="expand-toggle" data-target="jd-${id}">
+          <span>Job description &middot; <span style="color:var(--fit-hi);font-size:.7rem;font-weight:400;">saved</span></span>
+          <span class="chevron">&#9662;</span>
+        </button>
+        <div class="expand-content" id="jd-${id}">
+          <div class="context-block">
+            <p class="context-body" style="white-space:pre-wrap;word-break:break-word;font-size:.78rem;line-height:1.7;">${(job.jobDescription||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}</p>
+          </div>
+        </div>` : job.jobDescriptionStatus === 'fetch-failed' ? `
+        <button class="expand-toggle" data-target="jd-${id}" style="opacity:.55">
+          <span>Job description &middot; <span style="color:var(--text-3);font-size:.7rem;font-weight:400;">could not fetch</span></span>
+          <span class="chevron">&#9662;</span>
+        </button>
+        <div class="expand-content" id="jd-${id}">
+          <p class="context-body" style="font-style:italic;color:var(--text-3);padding:.5rem 0;">The description could not be retrieved automatically. This usually means the careers site blocks automated fetches &mdash; it does <strong>not</strong> confirm the posting is closed. Open the source link to check.</p>
+        </div>` : ''}
+
+      </div>
+
+      <div class="card-footer">
+        <span class="posted-meta">Posted ${fmtDate(posted)}</span>
+        <div class="card-actions">
+          <a class="btn-ghost" href="${source}" target="_blank" rel="noopener">View posting \u2197</a>
+          ${actions}
+        </div>
+      </div>
+    </div>`;
+  return el;
+}
+
+/* \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
+   RENDER
+   \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 */
+let activeFilter = 'new';
+
+function renderCards(filter) {
+  activeFilter = filter;
+  const wrap = document.getElementById('cards');
+  wrap.innerHTML = '';
+  const q = (document.getElementById('search-input')?.value || '').trim().toLowerCase();
+  const tabList = JOBS.filter(j => {
+    if (filter === 'new')          return j.status === 'new';
+    if (filter === 'applied')      return j.status === 'applied';
+    if (filter === 'followup')     return j.status === 'applied' && j.followUpDue && isPast(j.followUpDue);
+    if (filter === 'waiting')      return j.status === 'waiting';
+    if (filter === 'review')       return j.fit === 'review';
+    if (filter === 'not_interested') return j.status === 'not_interested';
+    if (filter === 'not_proceeding') return j.status === 'not_proceeding';
+    if (filter === 'all')          return true;
+    return true;
+  });
+  const visible = q ? JOBS.filter(j => {
+    const hay = [j.company, j.title, j.sector, j.location, j.snapshot||'', j.trigger||'', j.bigPicture||'',
+      (j.fitReasons||[]).join(' '), (j.gaps||[]).join(' '), j.userNotes||''].join(' ').toLowerCase();
+    return hay.includes(q);
+  }) : tabList;
+  const FIT_ORDER = { high: 0, medium: 1, review: 2, low: 3 };
+  visible.sort((a, b) => (FIT_ORDER[a.fit] ?? 4) - (FIT_ORDER[b.fit] ?? 4));
+  if (!visible.length) { wrap.innerHTML = '<div class="empty-state">No roles match' + (q ? ` "${q}"` : ' this filter') + '.</div>'; return; }
+  visible.forEach(j => wrap.appendChild(buildCard(j)));
+  attachExpanders();
+}
+
+function updateHeader() {
+  document.getElementById('stat-total').textContent   = JOBS.length;
+  document.getElementById('stat-high').textContent    = JOBS.filter(j => j.fit === 'high').length;
+  document.getElementById('stat-applied').textContent = JOBS.filter(j => j.status === 'applied').length;
+  document.getElementById('stat-high-applied').textContent = JOBS.filter(j => j.fit === 'high' && j.status === 'applied').length;
+  const _fmtStamp = function(iso){
+    const d = new Date(iso);
+    const t = d.toLocaleTimeString('en-CA',{hour:'numeric',minute:'2-digit',timeZone:'America/Toronto'});
+    const day = d.toLocaleDateString('en-CA',{month:'short',day:'numeric',timeZone:'America/Toronto'});
+    return d.toDateString()===new Date().toDateString() ? `today at ${t}` : `${day} at ${t}`;
+  };
+  const _scanLabel = _fmtStamp(LAST_SCAN_AT);
+  const _updAt = (typeof LAST_UPDATE_AT === 'string' && LAST_UPDATE_AT) ? LAST_UPDATE_AT : LAST_SCAN_AT;
+  const _updPart = (new Date(_updAt) - new Date(LAST_SCAN_AT) > 60000) ? ` \u00B7 updated ${_fmtStamp(_updAt)}` : '';
+  document.getElementById('hdr-meta').textContent     = `Last scanned ${_scanLabel}${_updPart} \u00B7 ${JOBS.length} roles \u00B7 7:30 AM & 3:30 PM daily`;
+  const applied  = JOBS.filter(j => j.status === 'applied').length;
+  const waiting  = JOBS.filter(j => j.status === 'waiting').length;
+  const review   = JOBS.filter(j => j.fit === 'review').length;
+  const followup = JOBS.filter(j => j.status === 'applied' && j.followUpDue && isPast(j.followUpDue)).length;
+  const parts = [];
+  if (review)   parts.push(`${review} need${review===1?'s':''} review`);
+  if (waiting)  parts.push(`${waiting} waiting`);
+  if (applied)  parts.push(`${applied} applied`);
+  if (followup) parts.push(`\u23F0 ${followup} follow-up${followup===1?'':'s'} overdue`);
+  document.getElementById('summary-bar').textContent = parts.join(' \u00B7 ');
+}
+
+/* \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
+   EXPANDERS
+   \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 */
+function attachExpanders() {
+  document.querySelectorAll('.expand-toggle').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = document.getElementById(btn.dataset.target);
+      if (!target) return;
+      const open = target.classList.toggle('open');
+      btn.classList.toggle('open', open);
+    });
+  });
+}
+
+/* \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
+   FILTERS
+   \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 */
+document.querySelectorAll('.filter-pill').forEach(pill => {
+  pill.addEventListener('click', () => {
+    document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+    pill.classList.add('active');
+    renderCards(pill.dataset.filter);
+  });
+});
+document.getElementById('search-input').addEventListener('input', function() {
+  document.getElementById('search-clear').classList.toggle('visible', this.value.length > 0);
+  renderCards(activeFilter);
+});
+document.getElementById('search-clear').addEventListener('click', function() {
+  document.getElementById('search-input').value = '';
+  this.classList.remove('visible');
+  renderCards(activeFilter);
+  document.getElementById('search-input').focus();
+});
+
+/* \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
+   CARD ACTIONS (event delegation)
+   \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 */
+document.getElementById('cards').addEventListener('click', e => {
+  const btn = e.target.closest('[data-action]');
+  if (!btn) return;
+  const id  = btn.dataset.id;
+  const job = JOBS.find(j => String(j.id) === id);
+  if (!job) return;
+  const action = btn.dataset.action;
+
+  if (action === 'apply')          openApplyModal(job);
+  if (action === 'not_interested') openDecisionModal(job, 'not_interested');
+  if (action === 'waiting')        openDecisionModal(job, 'waiting');
+  if (action === 'not_proceeding') openDecisionModal(job, 'not_proceeding');
+  if (action === 'mark_applied')   openAppliedModal(job);
+  if (action === 'save-note') {
+    const ta = document.querySelector(`.notes-textarea[data-id="${id}"]`);
+    job.userNotes = ta ? ta.value.trim() : '';
+    persist().then(() => { showToast('Note saved \u2713'); renderCards(activeFilter); });
+    return;
+  }
+  if (action === 'reconsider')     { job.status = 'new'; job.userNotes = ''; persist().then(() => { renderCards(activeFilter); updateHeader(); }); }
+  if (action === 'followed_up')    { job.status = 'applied'; /* keep applied, just mark FU done */ job.followUpDue = null; persist().then(() => { renderCards(activeFilter); updateHeader(); }); }
+});
+
+/* \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
+   CLIPBOARD HELPER
+   execCommand works in sandboxed iframes; the
+   clipboard API needs a permission the iframe lacks.
+   \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 */
+function execCopy(text) {
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.cssText = 'position:fixed;top:-9999px;left:-9999px;opacity:0;';
+  document.body.appendChild(ta);
+  ta.focus();
+  ta.select();
+  let ok = false;
+  try { ok = document.execCommand('copy'); } catch(e) {}
+  document.body.removeChild(ta);
+  return ok;
+}
+
+/* \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
+   DECISION MODAL (Let's Wait / Not Interested)
+   \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 */
+const decisionModal = document.getElementById('decision-modal');
+let dmJob = null, dmStatus = null;
+
+function openDecisionModal(job, status) {
+  dmJob = job; dmStatus = status;
+  const label = status === 'waiting' ? "Let's Wait" : status === 'not_proceeding' ? "Not Proceeding Further" : "Not Interested";
+  document.getElementById('dm-title').textContent = label;
+  document.getElementById('dm-sub').textContent   = `${job.title} \u00B7 ${job.company}`;
+  document.getElementById('dm-reason').value      = job.userNotes || '';
+  decisionModal.classList.add('open');
+  setTimeout(() => document.getElementById('dm-reason').focus(), 100);
+}
+
+document.getElementById('dm-cancel').addEventListener('click', () => decisionModal.classList.remove('open'));
+decisionModal.addEventListener('click', e => { if (e.target === decisionModal) decisionModal.classList.remove('open'); });
+
+document.getElementById('dm-submit').addEventListener('click', () => {
+  if (!dmJob) return;
+  dmJob.status    = dmStatus;
+  dmJob.userNotes = document.getElementById('dm-reason').value.trim();
+  if (dmStatus === 'not_proceeding') dmJob.followUpDue = null;
+  decisionModal.classList.remove('open');
+  persist().then(() => { renderCards(activeFilter); updateHeader(); });
+});
+
+/* \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
+   APPLIED-DATE MODAL
+   \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 */
+const appliedModal = document.getElementById('applied-modal');
+let apmJob = null;
+
+function openAppliedModal(job) {
+  apmJob = job;
+  document.getElementById('apm-sub').textContent  = `${job.title} \u00B7 ${job.company}`;
+  document.getElementById('apm-date').value        = TODAY;
+  appliedModal.classList.add('open');
+}
+
+document.getElementById('apm-cancel').addEventListener('click', () => appliedModal.classList.remove('open'));
+appliedModal.addEventListener('click', e => { if (e.target === appliedModal) appliedModal.classList.remove('open'); });
+
+document.getElementById('apm-submit').addEventListener('click', () => {
+  if (!apmJob) return;
+  const d = document.getElementById('apm-date').value || TODAY;
+  apmJob.status      = 'applied';
+  apmJob.appliedDate = d;
+  apmJob.followUpDue = addBizDays(d, 5);
+  appliedModal.classList.remove('open');
+  persist().then(() => { renderCards(activeFilter); updateHeader(); });
+});
+
+/* \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
+   APPLY MODAL (JD drafting)
+   \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 */
+const applyModal = document.getElementById('apply-modal');
+let amJob = null;
+
+function openApplyModal(job) {
+  /* Reset state from any previous application attempt */
+  const oldLink = document.getElementById('am-open-link');
+  if (oldLink) oldLink.remove();
+  const subBtn = document.getElementById('am-submit');
+  if (subBtn) { subBtn.textContent = 'Copy prompt \u2192 paste in Claude'; subBtn.disabled = false; subBtn.style.opacity = ''; }
+
+  amJob = job;
+  document.getElementById('am-title').textContent = 'Start Application';
+  document.getElementById('am-sub').textContent   = `${job.title} \u00B7 ${job.company} \u2014 add the JD below, then copy the prompt and paste it into a new Claude conversation.`;
+  document.getElementById('am-url').value  = job.source || '';
+  document.getElementById('am-jd').value   = '';
+  applyModal.classList.add('open');
+  setTimeout(() => document.getElementById('am-jd').focus(), 100);
+}
+
+document.getElementById('am-cancel').addEventListener('click', () => applyModal.classList.remove('open'));
+applyModal.addEventListener('click', e => { if (e.target === applyModal) applyModal.classList.remove('open'); });
+
+document.getElementById('am-submit').addEventListener('click', () => {
+  if (!amJob) return;
+  const url = document.getElementById('am-url').value.trim();
+  const jd  = document.getElementById('am-jd').value.trim();
+  const j = amJob;
+  const prompt = [
+    `I want to apply to the following role. Please draft a tailored resume and cover letter using my background.`,
+    ``,
+    `Role: ${j.title}`,
+    `Company: ${j.company} (${j.sector})`,
+    `Location: ${j.location} \u00B7 ${j.remote}`,
+    j.comp !== 'Not listed' ? `Compensation: ${j.comp}` : null,
+    ``,
+    `Role context:`,
+    j.snapshot ? `  ${j.snapshot}` : null,
+    j.trigger  ? `\nWhy this role exists: ${j.trigger}` : null,
+    j.bigPicture ? `\n12\u201324 month mandate: ${j.bigPicture}` : null,
+    ``,
+    `Fit (already identified):`,
+    ...(j.fitReasons || []).map(r => `  \u2022 ${r}`),
+    ``,
+    `Gaps to address in the application:`,
+    ...(j.gaps || []).map(g => `  \u2022 ${g}`),
+    ``,
+    url ? `Job posting URL: ${url}` : null,
+    jd  ? `\nFull job description:\n${jd}` : null,
+    ``,
+    `Hiring manager: ${j.hiringManager?.name || 'Unknown'} (${j.hiringManager?.title || ''})`,
+    `Recruiter: ${j.recruiter?.name || 'Unknown'}`,
+    ``,
+    `Please: (1) draft the tailored resume first, tightly matching the JD language where provided; (2) then the cover letter, opening with a hook specific to this company and role. Base both on my background. After drafting, remind me to click "Mark applied \u2713" on the job board once I've submitted.`
+  ].filter(l => l !== null).join('\n');
+
+  const DRAFT_CONVO = 'https://claude.ai/share/f5629ca9-bd13-411a-8ac2-1ca7b06e7c2c';
+
+  const copied = execCopy(prompt);
+  if (copied) {
+    amJob = null;
+    showToast('Prompt copied \u2713 \u2014 click "Open conversation \u2192" to continue');
+    /* Insert a real <a> link after the submit button.
+       window.open() is blocked by the artifact sandbox; a genuine user click on a
+       visible anchor is intercepted by the runtime nav handler and opens correctly. */
+    if (!document.getElementById('am-open-link')) {
+      const a = document.createElement('a');
+      a.id = 'am-open-link';
+      a.href = DRAFT_CONVO;
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+      a.textContent = 'Open conversation \u2192';
+      a.style.cssText = 'display:inline-flex;align-items:center;background:#1A7A4A;color:#fff;padding:.5rem 1.2rem;border-radius:5px;font-size:.85rem;font-weight:600;text-decoration:none;font-family:inherit;cursor:pointer;';
+      a.addEventListener('click', () => setTimeout(() => applyModal.classList.remove('open'), 150));
+      const btn = document.getElementById('am-submit');
+      btn.after(a);
+      btn.textContent = '\u2713 Copied';
+      btn.disabled = true;
+      btn.style.opacity = '0.5';
+    }
+  } else {
+    const ta = document.getElementById('am-jd');
+    ta.value = prompt;
+    ta.select();
+    showToast('Auto-copy unavailable \u2014 select all in the box and copy manually');
+  }
+});
+
+/* \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
+   ADD ROLE MODAL
+   \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 */
+const addRoleModal = document.getElementById('add-role-modal');
+
+document.getElementById('btn-add-role').addEventListener('click', () => {
+  ['ar-company','ar-title','ar-url','ar-location','ar-comp','ar-notes'].forEach(id => {
+    document.getElementById(id).value = '';
+    document.getElementById(id).classList.remove('field-error');
+  });
+  document.getElementById('ar-fit').value = 'review';
+  document.getElementById('ar-remote').value = 'Hybrid';
+  document.getElementById('ar-status').value = 'new';
+  addRoleModal.classList.add('open');
+  setTimeout(() => document.getElementById('ar-company').focus(), 100);
+});
+
+document.getElementById('ar-cancel').addEventListener('click', () => addRoleModal.classList.remove('open'));
+addRoleModal.addEventListener('click', e => { if (e.target === addRoleModal) addRoleModal.classList.remove('open'); });
+
+['ar-company','ar-title'].forEach(id => {
+  document.getElementById(id).addEventListener('input', function() { this.classList.remove('field-error'); });
+});
+
+document.getElementById('ar-submit').addEventListener('click', () => {
+  const company = document.getElementById('ar-company').value.trim();
+  const title   = document.getElementById('ar-title').value.trim();
+  let valid = true;
+  if (!company) { document.getElementById('ar-company').classList.add('field-error'); valid = false; }
+  if (!title)   { document.getElementById('ar-title').classList.add('field-error');   valid = false; }
+  if (!valid) return;
+
+  const slug = s => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+  const today = new Date().toISOString().slice(0, 10);
+  const id = `${slug(company)}-${slug(title.split(',')[0])}-${today.replace(/-/g,'').slice(2)}`;
+
+  const status = document.getElementById('ar-status').value;
+  const appliedDate = status === 'applied' ? today : null;
+
+  let followUpDue = null;
+  if (appliedDate) {
+    const d = new Date(appliedDate + 'T12:00:00');
+    let count = 0;
+    while (count < 5) { d.setDate(d.getDate() + 1); if (d.getDay() !== 0 && d.getDay() !== 6) count++; }
+    followUpDue = d.toISOString().slice(0, 10);
+  }
+
+  const job = {
+    id, company,
+    sector: '',
+    title,
+    location: document.getElementById('ar-location').value.trim() || 'Toronto, ON',
+    remote:   document.getElementById('ar-remote').value,
+    comp:     document.getElementById('ar-comp').value.trim() || 'Not listed',
+    posted: today, deadline: null,
+    source: document.getElementById('ar-url').value.trim() || null,
+    fit: document.getElementById('ar-fit').value,
+    fitReasons: [], gaps: [],
+    snapshot: '', trigger: null, bigPicture: null,
+    hiringManager: { name: null, title: null, linkedin: null },
+    recruiter: null, myContacts: [],
+    status, appliedDate, followUpDue, followUpWith: null,
+    userNotes: document.getElementById('ar-notes').value.trim()
+  };
+
+  JOBS.unshift(job);
+  persist().then(() => {
+    addRoleModal.classList.remove('open');
+    renderCards(activeFilter);
+    updateHeader();
+
+    /* Auto-copy a structured research prompt to paste into
+       Claude chat immediately \u2014 Claude then populates all the empty fields. */
+    const researchPrompt = [
+      `I just added a new role to my job board. Please research it and populate all the empty fields.`,
+      ``,
+      `Role: ${title}`,
+      `Company: ${company}`,
+      `Location: ${job.location}`,
+      job.source ? `URL: ${job.source}` : null,
+      ``,
+      `Return a JSON block (so I can paste it back to update the board) with these fields:`,
+      `  sector        \u2014 industry/sector (e.g. "Financial Services", "Insurance", "Technology")`,
+      `  fit           \u2014 "high", "medium", "low", or "review" based on my background (AI strategy, innovation, my background)`,
+      `  fitReasons    \u2014 array of 3\u20134 bullets: why this role fits my background`,
+      `  gaps          \u2014 array of 2\u20133 bullets: concerns or gaps to address in the application`,
+      `  snapshot      \u2014 2-sentence company snapshot`,
+      `  trigger       \u2014 why this role was likely created / what business need it fills`,
+      `  bigPicture    \u2014 what the mandate looks like 12\u201324 months out`,
+      `  hiringManager \u2014 { name, title, linkedin } if findable, else { name: null, title: null, linkedin: null }`,
+      `  recruiter     \u2014 { name, title, linkedin } if findable, else null`,
+      `  comp          \u2014 compensation range if listed or publicly known, else "Not listed"`,
+      ``,
+      `After the JSON, remind me to paste it back here so you can update the board card.`,
+    ].filter(l => l !== null).join('\n');
+
+    const copied = execCopy(researchPrompt);
+    showToast(copied
+      ? `${company} added \u2713  \u2014  research prompt copied \u00B7 paste in Claude chat \u2191`
+      : `${company} added to board \u2713`);
+  });
+});
+
+document.addEventListener('keydown', e => {
+  if (e.key !== 'Escape') return;
+  decisionModal.classList.remove('open');
+  applyModal.classList.remove('open');
+  appliedModal.classList.remove('open');
+  addRoleModal.classList.remove('open');
+});
+
+/* \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
+   TOAST
+   \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 */
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+/* \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550
+   INIT
+   \u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550\u2550 */
+updateHeader();
+renderCards('new');
+</script>
+</div>
+</body></html>
